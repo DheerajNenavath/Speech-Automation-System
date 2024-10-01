@@ -1,5 +1,7 @@
 import speech_recognition as sr
 import webbrowser
+import subprocess
+import os
 
 def recognize_speech():
     recognizer = sr.Recognizer()
@@ -21,6 +23,22 @@ def recognize_speech():
                 print("Opening browser...")
                 webbrowser.open("http://www.google.com")
 
+            # Open a specific application if the command is recognized
+            elif "open calculator" in text.lower():
+                print("Opening calculator...")
+                # For Windows, use subprocess to open Calculator
+                subprocess.Popen("calc.exe")
+
+            elif "open notepad" in text.lower():
+                print("Opening Notepad...")
+                # For Windows, use subprocess to open Notepad
+                subprocess.Popen("notepad.exe")
+
+            elif "open vscode" in text.lower() or "open visual studio code" in text.lower():
+                print("Opening Visual Studio Code...")
+                # Use the correct path for your system
+                subprocess.Popen([r"C:\path\to\your\code.exe"])
+
         except sr.UnknownValueError:
             print("Sorry, I could not understand the audio.")
         except sr.RequestError as e:
@@ -28,4 +46,5 @@ def recognize_speech():
 
 if __name__ == "__main__":
     recognize_speech()
+
 
